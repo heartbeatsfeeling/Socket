@@ -5,6 +5,7 @@
 * 支持取消订阅
 
 ##使用方法
+###前端代码
 ```js
 var ws = new Socket({
 	url: "ws://115.28.213.244:8181",//ws-url
@@ -34,5 +35,25 @@ var ws = new Socket({
 	onerror:function(event){//连接出错
 	
 	}
+});
+```
+###后端测试代码
+```js
+var WebSocketServer = require('ws').Server,
+	wss = new WebSocketServer({
+		port: 8181
+	});
+wss.on('connection', function(ws) {
+	ws.on('message', function(message) {
+		var data=JSON.parse(message);
+		ws.send(JSON.stringify({
+			path:data.path,//向指定频道发消息
+			message:"后台推送数据："+message
+		}))
+	});
+	ws.send(JSON.stringify({
+		path:'test',//向test频道发消息
+		message:"后台推送数据：链接成功"
+	}))
 });
 ```
