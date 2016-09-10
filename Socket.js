@@ -43,7 +43,6 @@
 			var successCallback=option.success||this.noop;
 			var errorCallback=option.error||this.noop;
 			if(this.openStatus&&!this.closeStatus){//连接成功，同时没有关闭
-				console.log(JSON.stringify(postData))
 				this.ws.send(JSON.stringify(postData))
 				successCallback(postData);
 			}else{
