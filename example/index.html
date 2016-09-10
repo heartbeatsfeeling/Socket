@@ -6,17 +6,48 @@
 	<script src="../Socket.js"></script>
 </head>
 <body>
+	<div>
+		<input type="text" id="input">
+		<button>submit</button>
+	</div>
+	<ul></ul>
 	<script>
+		var log=function(data){
+			var li=document.createElement('li');
+			li.innerText=data.data;
+			document.querySelector('ul').appendChild(li)
+		}
 		var ws=new Socket({
 			url:"ws://127.0.0.1:8181",
 			onmessage:function(){
 				console.log('我是js的message')
+			},
+			onopen:function(){
+				ws.emit({
+					path:"test",
+					message:"aaa"
+				});
+				ws.on('test',function(data){
+					log(data)
+				});
+				document.querySelector('button').onclick=function(){
+					var value=document.querySelector('#input').value;
+					if(value){
+						ws.emit({
+							path:'test',
+							message:value,
+							success:function(data){
+								
+							},
+							error:function(){
+
+							}
+						})
+					}
+				}
 			}
 		});
-		ws.on('test',function(d){
-			console.log('test',d)
-			//ws.off('test');
-		})
+		
 	</script>
 </body>
 </html>

@@ -1,6 +1,5 @@
 (function() {
 	var Socket = function(option) {
-		console.log(option, 1111)
 		this.url = option.url;
 		this.onopen = option.onopen || this.noop;
 		this.onclose = option.onclose || this.noop;
@@ -12,10 +11,8 @@
 	};
 	Socket.prototype = {
 		connect: function() {//连接
-			console.log('连接中')
 			this.ws = new WebSocket(this.url);
 			this.ws.onopen = function() {
-				console.log('连接成功')
 				this.openStatus=true;
 				this.closeStatus=false;
 				this.onopen();
@@ -29,12 +26,10 @@
 				this.onmessage(event);
 			}.bind(this);
 			this.ws.onclose = function() {
-				console.log('连接段开')
 				this.closeStatus=true;
 				this.onclose();
 			}.bind(this);
 			this.ws.onerror = function() {
-				console.log('连接出错')
 				this.closeStatus=true;
 				this.connect();
 				this.onerror();
@@ -48,6 +43,7 @@
 			var successCallback=option.success||this.noop;
 			var errorCallback=option.error||this.noop;
 			if(this.openStatus&&!this.closeStatus){//连接成功，同时没有关闭
+				console.log(JSON.stringify(postData))
 				this.ws.send(JSON.stringify(postData))
 				successCallback(postData);
 			}else{
@@ -61,7 +57,6 @@
 			}
 		},
 		off:function(path){//取消订阅
-			console.log('off')
 			if(path&&this.isFunction(this[path])){
 				delete this[path]
 			}
