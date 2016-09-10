@@ -8,8 +8,15 @@
 <body>
 	<script>
 		var ws=new Socket({
-			url:"ws://127.0.0.1:8181"
+			url:"ws://127.0.0.1:8181",
+			onmessage:function(){
+				console.log('我是js的message')
+			}
 		});
+		ws.on('test',function(d){
+			console.log('test',d)
+			//ws.off('test');
+		})
 	</script>
 </body>
 </html>
