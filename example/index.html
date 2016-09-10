@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
+	<title>Websocket 测试页面</title>
 	<script src="../Socket.js"></script>
 </head>
 <body>
+	<h1>点击按钮向后台发送数据</h1>
 	<div>
 		<input type="text" id="input">
 		<button>submit</button>
@@ -18,7 +19,7 @@
 			document.querySelector('ul').appendChild(li)
 		}
 		var ws=new Socket({
-			url:"ws://127.0.0.1:8181",
+			url:"ws://115.28.213.244:8181",
 			onmessage:function(){
 				console.log('我是js的message')
 			},
