@@ -1,5 +1,5 @@
 # Socket
-对 html5 Websocket的简单封装
+为了解决html5 Websocket 无法订阅特定频道问题，所以才有了这个插件
 ##功能
 * 支持消息订阅
 * 支持取消订阅
