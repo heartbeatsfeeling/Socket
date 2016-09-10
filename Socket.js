@@ -12,10 +12,10 @@
 	Socket.prototype = {
 		connect: function() {//连接
 			this.ws = new WebSocket(this.url);
-			this.ws.onopen = function() {
+			this.ws.onopen = function(event) {
 				this.openStatus=true;
 				this.closeStatus=false;
-				this.onopen();
+				this.onopen(event);
 			}.bind(this);
 			this.ws.onmessage=function(event){
 				var data=JSON.parse(event.data);
@@ -25,14 +25,14 @@
 				};
 				this.onmessage(event);
 			}.bind(this);
-			this.ws.onclose = function() {
+			this.ws.onclose = function(event) {
 				this.closeStatus=true;
-				this.onclose();
+				this.onclose(event);
 			}.bind(this);
-			this.ws.onerror = function() {
+			this.ws.onerror = function(event) {
 				this.closeStatus=true;
 				this.connect();
-				this.onerror();
+				this.onerror(event);
 			}.bind(this);
 		},
 		emit:function(option){//发送消息
